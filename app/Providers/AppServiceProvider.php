@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /*
+         * Essa linha foi necessária por causa do problema com tamanho de index em versões do mysql anteriores à 5.7.7
+         * https://laravel.com/docs/8.x/migrations#index-lengths-mysql-mariadb
+         */
+        Schema::defaultStringLength(191);
     }
 }
