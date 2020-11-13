@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
          * https://laravel.com/docs/8.x/migrations#index-lengths-mysql-mariadb
          */
         Schema::defaultStringLength(191);
+
+        Inertia::share('auth.user', function () {
+            return Auth::user();
+        });
     }
 }
