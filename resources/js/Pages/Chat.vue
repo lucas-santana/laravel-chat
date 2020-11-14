@@ -64,7 +64,7 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
-    import Welcome from '@/Jetstream/Welcome'
+    import store from "../store";
 
     export default {
         components: {
@@ -76,6 +76,11 @@
                 messages: [],
                 userActive: null,
                 message:null
+            }
+        },
+        computed: {
+            user(){
+                return store.state.user
             }
         },
         methods:{
@@ -103,7 +108,7 @@
                     'to' : this.userActive.id
                 }).then(response => {
                     this.messages.push({
-                        'from' : 1,
+                        'from' : this.user.id,
                         'to' : this.userActive.id,
                         'content' : this.message,
                         'created_at' : new Date().toISOString(),
@@ -119,6 +124,7 @@
             }
         },
         mounted(){
+            console.log(this.user)
             axios.get('/api/users')
                 .then(response => {
                 this.users = response.data.users;
